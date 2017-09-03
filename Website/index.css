@@ -1,0 +1,27 @@
+.user-msg {
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+  background: #90D8E6;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 5px;
+  float: right;
+  clear: both;
+}
+
+.comp-msg {
+  border-width: 2px;
+  border-style: solid;
+  border-color: grey;
+  background: #67E996;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 5px;
+  float: left;
+  clear: both;
+}
+
+body {
+  background: #E5DDD5;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Generator</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="index.js"></script>
+  </head>
+  <body onload="start()">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div class="ui fluid large input">
+          <input type="text" id="textinput" placeholder="Chat...">
+          <button class="ui button" onclick="send()">Send</button>
+        </div>
+      </div>
+    </div>
+    <div class="ui grid">
+      <div class="sixteen wide column" id="chat_column"></div>
+    </div>
+  </body>
+</html>
