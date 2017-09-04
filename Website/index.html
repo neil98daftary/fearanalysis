@@ -10,15 +10,28 @@
     <script src="index.js"></script>
   </head>
   <body onload="start()">
-    <div class="ui grid">
-      <div class="sixteen wide column">
-        <div class="ui fluid large input">
+    <div class="ui rail" style="width: 100%;">
+      <div class="ui fixed bottom sticky" style="width: 100%">
+        <div class="ui fluid icon input">
           <input type="text" id="textinput" placeholder="Chat...">
-          <button class="ui button" onclick="send()">Send</button>
+          <div class="ui vertical animated button" onclick="send()" tabindex="0">
+            <div class="hidden content">Chat</div>
+            <div class="visible content">
+              <i class="send icon"></i>
+            </div>
+          </div>
         </div>
+        <div style="height: 10px; width: 100%"></div>
       </div>
     </div>
-    <div class="ui grid">
+    <div class="ui grid" style="padding: 10px;">
+      <div class="sixteen wide column" id="chat_column">
+        <h2 class="ui center aligned red header">
+          <div class="content">
+            Fear Analyzer
+          </div>
+        </h2>
+      </div>
       <div class="sixteen wide column" id="chat_column"></div>
     </div>
   </body>
