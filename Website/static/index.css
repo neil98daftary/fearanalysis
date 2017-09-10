@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.user-msg {
+  background: #0076FF;
+  display: inline-block;
+  border-radius: 10px;
+  padding: 10px;
+  float: right;
+  clear: both;
+  margin-top: 10px;
+  max-width: 50%;
+  color: white;
+  position: relative;
+  margin-right: 20px;
+}
+
+.comp-msg {
+  background: #F0F0F0;
+  display: inline-block;
+  border-radius: 10px;
+  padding: 10px;
+  float: left;
+  clear: both;
+  margin-top: 10px;
+  max-width: 50%;
+  color: black;
+  position: relative;
+  margin-left: 20px;
+}
+
+.comp-msg::before{
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: -4px;
+  top: 15px;
+  width: 8px;
+  height: 8px;
+  border: none;
+  background-color: #F0F0F0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+}
+
+.user-msg::after{
+  content: ' ';
+  display: block;
+  position: absolute;
+  right: -4px;
+  top: 15px;
+  width: 8px;
+  height: 8px;
+  border: none;
+  background-color: #0076FF;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+}
+
+html, body {
+  height: 99%;
+  font-family: 'Roboto', sans-serif;
+}
+
+#main_div {
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid black;
+}
+
+#top_bar {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #F0F0F0;
+  z-index: 1;
+}
+
+#heading_div {
+  width: 50%;
+  text-align: center;
+}
+
+#heading {
+  margin: 0;
+}
+
+#info_div {
+  width: 25%;
+  text-align: center;
+  display: inline-block;
+  height: 30px;
+}
+
+#info_icon {
+  height: 100%;
+}
+
+#info_icon:hover {
+  cursor: pointer;
+}
+
+#chat_div {
+  height: 80%;
+  padding: 55px 10px;
+  overflow-y: scroll;
+  z-index: 0;
+}
+
+#chat_box {
+  width: 100%;
+  height: 47px;
+  position: absolute;
+  bottom: 0;
+  background: #F0F0F0;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+#textinput {
+  width: 90%;
+  height: 35px;
+  padding: 1px 5px;
+  font-size: 15px;
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+  word-break: break-word;
+}
+
+#send_button {
+  border: none;
+  width: 9%;
+  background: transparent;
+  height: 100%;
+  font-size: 20px;
+  color: #0076FF;
+  outline: none;
+}
