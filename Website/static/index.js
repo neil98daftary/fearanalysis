@@ -1,5 +1,3 @@
-
-
 $('document').ready(function() {
   let utext = '';
   let user_comp = 1;
@@ -12,7 +10,6 @@ $('document').ready(function() {
   let q4 = "You are at the Grand Canyon and you are out on the observation deck when you peer down. You will ";
   let q5 = "You and your friend are at the amusement park and are about to enter the hedge maze when your friend decides he/she doesn't want to go in. You will ";
   let comp_msgs_order = {'0': 'hello_msg', '1': 'name_input', '2': 'welcome', '3': 'q1', '4': 'q2', '5': 'q3', '6': 'q4', '7': 'q5'};
-  // let comp_msgs = {hello_msg: hello_msg, name_input: name_input, welcome: welcome, q1: q1, q2: q2, q3: q3, q4: q4, q5: q5};
   let comp_msgs = {hello_msg, name_input, welcome, q1, q2, q3, q4, q5};
   let i = 0;
   let responses = {};
@@ -55,17 +52,20 @@ $('document').ready(function() {
     }).appendTo('#chat_div');
     user_comp = 1;
     responses[`${comp_msgs_order[i-1]}`] = utext;
-    // console.log(responses);
+    $.ajax({
+      type: 'POST',
+      url: '/result',
+      data: responses,
+    })
+    .done(function(result) {
+      if(Object.keys(result).length === 1 && Object.keys(result)[0] === comp_msgs_order[i-1]) {
+        delete responses[`${comp_msgs_order[i-1]}`];
+        let displayMessage  = `You entered a level ${result[comp_msgs_order[i-1]]} response`
+        console.log(displayMessage);
+      }
+    });
     if(comp_msgs[`${comp_msgs_order[i-1]}`] === q5) {
       $("#textinput").prop('disabled', true);
-      $.ajax({
-        type: 'POST',
-        url: '/result',
-        data: responses,
-      })
-      .done(function(result){
-        alert(JSON.stringify(result))
-      });
     }
     else {
       $('#heading').text('Thinking....');

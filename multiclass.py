@@ -10,7 +10,7 @@ Created on Sat Jul 29 15:26:42 2017
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import os as os 
+import os as os
 
 Main_Path = "/home/neil/Desktop/fearanalysis"
 os.chdir(Main_Path)
@@ -22,13 +22,13 @@ dataset_rejection = pd.read_csv('what.csv', delimiter='\t', quoting=3, sep=';')
 dataset_lonliness = pd.read_csv('what.csv', delimiter='\t', quoting=3, sep=';')
 import re
 import nltk
-import sklearn 
+import sklearn
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
 number_of_classes = 5
- 
+
 corpus = []
 corpus_water = []
 corpus_heights = []
@@ -43,7 +43,7 @@ for i in range(0, 1000):
   review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
   review = ' '.join(review)
   corpus.append(review)
-  
+
   review = re.sub('[^a-zA-Z]', ' ', dataset_water['Review'][i])
   review = review.lower()
   review = review.split()
@@ -51,7 +51,7 @@ for i in range(0, 1000):
   review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
   review = ' '.join(review)
   corpus_water.append(review)
-  
+
   review = re.sub('[^a-zA-Z]', ' ', dataset_heights['Review'][i])
   review = review.lower()
   review = review.split()
@@ -59,7 +59,7 @@ for i in range(0, 1000):
   review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
   review = ' '.join(review)
   corpus_heights.append(review)
-  
+
   review = re.sub('[^a-zA-Z]', ' ', dataset_rejection['Review'][i])
   review = review.lower()
   review = review.split()
@@ -67,7 +67,7 @@ for i in range(0, 1000):
   review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
   review = ' '.join(review)
   corpus_rejection.append(review)
-  
+
   review = re.sub('[^a-zA-Z]', ' ', dataset_lonliness['Review'][i])
   review = review.lower()
   review = review.split()
@@ -76,7 +76,7 @@ for i in range(0, 1000):
   review = ' '.join(review)
   corpus_lonliness.append(review)
 
-    
+
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
@@ -126,8 +126,8 @@ model_lonliness.fit(X_train_lonliness, Y_train_lonliness)
 #results = model.predict_proba(X_test)[0]
 
 agg1 = np.empty([1,5])
-agg2 = np.empty([1,5]) 
-agg3 = np.empty([1,5]) 
+agg2 = np.empty([1,5])
+agg3 = np.empty([1,5])
 #print(testvar)
 #print(mode)
 
@@ -141,44 +141,44 @@ def preprocessing(testvar):
     anothercorpus.append(testing)
     #from sklearn.feature_extraction.text import CountVectorizer
     #vect = CountVectorizer()
-   
+
     #Y = X.toarray()
 
 
 def predictionFunction(mode):
-    global probs1    
+    global probs1
     global probs11
     if mode == 1:
         probs1 = model.predict_proba(R)
         probs11 = model.predict(R)
         print(probs11)
-        
+
     if mode == 2:
         probs1 = model_water.predict_proba(R)
         probs11 = model_water.predict(R)
-        print(probs11)        
-       
+        print(probs11)
+
     if mode == 3:
         probs1 = model_heights.predict_proba(R)
         probs11 = model_heights.predict(R)
-        print(probs11)        
-        
+        print(probs11)
+
     if mode == 4:
         probs1 = model_rejection.predict_proba(R)
         probs11 = model_rejection.predict(R)
-        print(probs11)        
-       
+        print(probs11)
+
     if mode == 5:
         probs1 = model_lonliness.predict_proba(R)
         probs11 = model_lonliness.predict(R)
-        print(probs11)        
-        
+        print(probs11)
+
 a = 5
 while a>0:
     testvar = input()
-    mode = int(input())  
+    mode = int(input())
     preprocessing(testvar)
-    R = cv.transform(anothercorpus).todense()  
+    R = cv.transform(anothercorpus).todense()
     predictionFunction(mode)
     a = a - 1
 
@@ -192,7 +192,7 @@ while x<5:
     agg2[x] = np.floor(agg2[x])
     x = x + 1
 #print(agg2)
- 
+
 print("aggregate classes for each fear")
 for x in range(0,len(agg1)):
     print(agg2[x], agg3[x])
@@ -200,7 +200,6 @@ for x in range(0,len(agg1)):
     #print("\n")
 
 #if (mode == 1):
- #   print("hi mode is 1")   
+ #   print("hi mode is 1")
 # great food, great ambience. service was a little slow but would still recommend this place to everyone i know
 # The food was extremely delicious but the service was slow and inefficient
-
