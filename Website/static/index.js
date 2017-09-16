@@ -11,8 +11,10 @@ $('document').ready(function() {
   let q5 = "You and your friend are at the amusement park and are about to enter the hedge maze when your friend decides he/she doesn't want to go in. You will ";
   let comp_msgs_order = {'0': 'hello_msg', '1': 'name_input', '2': 'welcome', '3': 'q1', '4': 'q2', '5': 'q3', '6': 'q4', '7': 'q5'};
   let comp_msgs = {hello_msg, name_input, welcome, q1, q2, q3, q4, q5};
+  let q_types = {"hello_msg": "hello_msg", "name_input": "name_input", "welcome": "welcome", "q1": "failure", "q2": "rejection", "q3": "water", "q4": "heights", "q5": "loneliness"};
   let i = 0;
   let responses = {};
+  let displayMessage;
 
   function start() {
     $('#heading').text('Fear Analyzer');
@@ -35,6 +37,13 @@ $('document').ready(function() {
       elem.scrollTop = elem.scrollHeight;
     }
   }
+
+  function clearResponseObject() {
+    delete responses['question'];
+    delete responses['answer'];
+    delete responses['type'];
+  }
+
   $('#send_button').click(() => {
     utext = $("#textinput").val();
     if(utext !== '') {
@@ -51,16 +60,23 @@ $('document').ready(function() {
       text: utext
     }).appendTo('#chat_div');
     user_comp = 1;
-    responses[`${comp_msgs_order[i-1]}`] = utext;
+    responses['question'] = `${comp_msgs_order[i-1]}`;
+    responses['answer'] = utext;
+    responses['type'] = q_types[`${comp_msgs_order[i-1]}`];
     $.ajax({
       type: 'POST',
       url: '/result',
       data: responses,
     })
     .done(function(result) {
-      if(Object.keys(result).length === 1 && Object.keys(result)[0] === comp_msgs_order[i-1]) {
-        delete responses[`${comp_msgs_order[i-1]}`];
-        let displayMessage  = `You entered a level ${result[comp_msgs_order[i-1]]} response`
+      if(Object.keys(result).length === 3 && result['question'] === comp_msgs_order[i-1]) {
+        clearResponseObject();
+        if(result["level"] === 0) {
+          displayMessage = 'Small talk'
+        }
+        else {
+          displayMessage  = `You entered a level ${result["level"]} response`
+        }
         console.log(displayMessage);
       }
     });

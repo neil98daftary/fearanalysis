@@ -16,7 +16,12 @@ def getResponses():
         data = {}
         responseData = {}
         data = request.form
-        responseData[data.keys()[0]] = randint(1, 5)
+        if data["type"] != "hello_msg" and data["type"] != "name_input" and data["type"] != "welcome":
+            responseData["level"] = randint(1, 5)
+        else:
+            responseData["level"] = 0
+        responseData["question"] = data["question"]
+        responseData["type"] = data["type"]
         return jsonify(responseData)
 
 if __name__ == '__main__':
