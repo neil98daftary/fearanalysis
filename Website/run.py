@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from random import randint
+import multiclass
 app = Flask(__name__)
 
 @app.route('/')
@@ -16,8 +17,14 @@ def getResponses():
         data = {}
         responseData = {}
         data = request.form
-        responseData[data.keys()[0]] = randint(1, 5)
+        if data["type"] != "hello_msg" and data["type"] != "name_input" and data["type"] != "welcome":
+            responseData["level"] = multiclass.process(data["answer"])
+        else:
+            responseData["level"] = 0
+        responseData["question"] = data["question"]
+        responseData["type"] = data["type"]
         return jsonify(responseData)
 
 if __name__ == '__main__':
    app.run(debug = True)
+
