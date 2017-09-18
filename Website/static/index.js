@@ -1,4 +1,5 @@
 $('document').ready(function() {
+  let rej_levels = []
   let utext = '';
   let user_comp = 1;
   let hello_msg = "Hello!";
@@ -31,7 +32,7 @@ $('document').ready(function() {
         user_comp = 1;
         $('#heading').text('Thinking....');
         $("#textinput").prop('disabled', true);
-        setTimeout(start, 2000);
+        setTimeout(start, 1000);
       }
       var elem = document.getElementById('chat_div');
       elem.scrollTop = elem.scrollHeight;
@@ -76,6 +77,7 @@ $('document').ready(function() {
         }
         else {
           displayMessage  = `You entered a level ${result["level"]} response`
+          rej_levels.push(result["level"]);
         }
         console.log(displayMessage);
       }
