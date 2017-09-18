@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os as os
 import math
-Main_Path = "/Users/adityadesai/Desktop/fearanalysis/Website"
+Main_Path = "/home/jaideeprao/Desktop"
 os.chdir(Main_Path)
 
 # dataset = pd.read_csv('rej.csv', delimiter='\t', quoting=3, sep=';')
