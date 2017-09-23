@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os as os
 import math
-Main_Path = "/home/jaideeprao/Desktop/fearanalysis/Website"
+Main_Path = "/Users/adityadesai/Desktop/fearanalysis/Website"
 os.chdir(Main_Path)
 
 dataset = pd.read_csv('rej.csv', delimiter='\t', quoting=3, sep=';')
@@ -56,4 +56,3 @@ model.fit(X_train, Y_train)
 from sklearn.externals import joblib
 joblib.dump(model, "model.pkl")
 print "done"
-

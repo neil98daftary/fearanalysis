@@ -12,9 +12,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os as os
 import math
-Main_Path = "/home/jaideeprao/Desktop/fearanalysis/Website"
+Main_Path = "/Users/adityadesai/Desktop/fearanalysis/Website"
 os.chdir(Main_Path)
-
 
 import re
 # import nltk
@@ -43,7 +42,7 @@ def preprocessing(testvar):
     anothercorpus.append(testing)
 
 
-def predictionFunction(R): 
+def predictionFunction(R):
     # probs1 = retrieved_model.predict_proba(R)
     probs11 = retrieved_model.predict(R)[-1]
     print(probs11)
