@@ -81,6 +81,33 @@ $('document').ready(function() {
    elem.scrollTop = elem.scrollHeight;
  });
 
+ function drawChart() {
+   google.charts.load('current', {packages: ['corechart', 'bar']});
+   google.charts.setOnLoadCallback(drawMultSeries);
+ }
+
+ function drawMultSeries() {
+      var data = google.visualization.arrayToDataTable([
+        ['Fear', 'Value', { role: 'style' }],
+        ['Rejection', result["level"], gold]
+      ]);
+
+      var options = {
+        title: 'Population of Largest U.S. Cities',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Fear Percentage',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Fear  '
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+
  function usertext() {
    $('<div/>', {
      class: 'user-msg',
@@ -103,6 +130,7 @@ $('document').ready(function() {
        }
        else {
          displayMessage  = `You entered a level ${result["level"]} response`
+         drawChart();
          rej_levels.push(result["level"]);
        }
        console.log(displayMessage);

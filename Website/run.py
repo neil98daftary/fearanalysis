@@ -13,6 +13,10 @@ def index():
 def startAnalyzer():
     return render_template('start.html');
 
+@app.route('/chart')
+def chart():
+    return render_template('chart.html');
+
 @app.route("/result", methods=["GET", "POST"])
 def getResponses():
     if request.method == "POST":
