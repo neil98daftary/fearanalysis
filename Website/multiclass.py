@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os as os
 import math
-Main_Path = "/home/neil/Desktop/fearanalysis/Website"
+Main_Path = "/Users/adityadesai/Desktop/fearanalysis/Website"
 os.chdir(Main_Path)
 
 import re

@@ -1,7 +1,7 @@
 $('document').ready(function() {
   let no_of_fears = 5;
-  let no_of_questions = 0
-  let rej_levels = [];
+  let no_of_questions = 10
+  let rej_levels = {};
   let utext = '';
   let user_comp = 1;
   let comp_msgs = [];
@@ -16,7 +16,7 @@ $('document').ready(function() {
     success: (data) => {
       organizeQuestions(data);
     }
- });
+  });
 
  function organizeQuestions(questions) {
    let index = 0;
@@ -36,7 +36,7 @@ $('document').ready(function() {
          }
          if(j !== 0) {
            comp_msgs.push({"question": questions[j][i], "fear": questions[0][i]});
-           no_of_questions++;
+          //  no_of_questions++;
            index++;
          }
        }
@@ -81,33 +81,6 @@ $('document').ready(function() {
    elem.scrollTop = elem.scrollHeight;
  });
 
- function drawChart() {
-   google.charts.load('current', {packages: ['corechart', 'bar']});
-   google.charts.setOnLoadCallback(drawMultSeries);
- }
-
- function drawMultSeries() {
-      var data = google.visualization.arrayToDataTable([
-        ['Fear', 'Value', { role: 'style' }],
-        ['Rejection', result["level"], gold]
-      ]);
-
-      var options = {
-        title: 'Population of Largest U.S. Cities',
-        chartArea: {width: '50%'},
-        hAxis: {
-          title: 'Fear Percentage',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'Fear  '
-        }
-      };
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-
  function usertext() {
    $('<div/>', {
      class: 'user-msg',
@@ -122,7 +95,7 @@ $('document').ready(function() {
      url: '/result',
      data: responses,
    })
-   .done(function(result) {
+   .done((result) => {
      if(Object.keys(result).length === 3) {
        clearResponseObject();
        if(result["level"] === 0) {
@@ -130,20 +103,33 @@ $('document').ready(function() {
        }
        else {
          displayMessage  = `You entered a level ${result["level"]} response`
-         drawChart();
-         rej_levels.push(result["level"]);
+        //  rej_levels.push(result["level"]);
+         rej_levels[i - 1] = result["level"]
        }
-       console.log(displayMessage);
+       console.log(rej_levels);
+       if(i === no_of_questions) {
+         finishUp()
+       }
+       else {
+         $('#heading').text('Thinking....');
+         $("#textinput").prop('disabled', true);
+         setTimeout(start, 1000);
+       }
      }
    });
-   if(i === no_of_questions - 1) {
-     $("#textinput").prop('disabled', true);
-   }
-   else {
-     $('#heading').text('Thinking....');
-     $("#textinput").prop('disabled', true);
-     setTimeout(start, 1000);
-   }
+ }
+
+ function finishUp() {
+   $("#textinput").prop('disabled', true);
+   $.ajax({
+     type: 'POST',
+     url: '/postchart',
+     data: { ...rej_levels}
+   })
+   .done((result) => {
+     window.open('/chart', '_self')
+     console.log("result", result)
+   });
  }
 
  $(document).keypress(function(e) {

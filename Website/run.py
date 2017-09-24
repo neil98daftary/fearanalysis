@@ -13,9 +13,23 @@ def index():
 def startAnalyzer():
     return render_template('start.html');
 
-@app.route('/chart')
+@app.route('/postchart', methods=["GET", "POST"])
+def postChart():
+    if request.method == "POST":
+        global chartData
+        chartData = request.form
+        print(chartData, file=sys.stdout)
+    return jsonify(chartData)
+
+@app.route('/getchart', methods=["POST", "GET"])
+def getChart():
+    if request.method == "GET":
+        return jsonify(chartData)
+
+
+@app.route('/chart', methods=["GET", "POST"])
 def chart():
-    return render_template('chart.html');
+    return render_template('chart.html')
 
 @app.route("/result", methods=["GET", "POST"])
 def getResponses():
